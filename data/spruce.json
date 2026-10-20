@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "name": "spruce",
+  "minHeight": 13,
+  "maxHeight": 22,
+  "trunk": 0.017,
+  "crownStart": 0.1,
+  "crownWidth": 0.2,
+  "whorls": 22,
+  "minBranches": 6,
+  "maxBranches": 8,
+  "rise": 0.2,
+  "droop": 0.45,
+  "sprays": 5,
+  "sprayWidth": 0.7,
+  "needles": [
+    0.16,
+    0.25,
+    0.18
+  ],
+  "bark": [
+    0.32,
+    0.25,
+    0.2
+  ]
+}

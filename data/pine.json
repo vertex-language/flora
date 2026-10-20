@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "name": "young pine",
+  "minHeight": 6,
+  "maxHeight": 11,
+  "trunk": 0.02,
+  "crownStart": 0.18,
+  "crownWidth": 0.26,
+  "whorls": 11,
+  "minBranches": 4,
+  "maxBranches": 6,
+  "rise": 0.35,
+  "droop": 0.2,
+  "sprays": 4,
+  "sprayWidth": 0.8,
+  "needles": [
+    0.2,
+    0.3,
+    0.17
+  ],
+  "bark": [
+    0.38,
+    0.27,
+    0.19
+  ]
+}
