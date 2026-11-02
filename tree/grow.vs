@@ -29,7 +29,7 @@ public struct Tree {
 }
 
 /// Grow grows a tree of a species; the same seed, the same tree.
-public func Grow(_ s: Species, seed: uint64) -> Tree {
+public func Grow(s: Species, seed: uint64) -> Tree {
     var g = rand.Xorshift128Plus(seed: seed &* 0x9E3779B97F4A7C15 &+ 1)
     func unit() -> float32 { return float32(g.Float64()) }
     let h = s.MinHeight + (s.MaxHeight - s.MinHeight) * unit()
@@ -122,7 +122,7 @@ public func Grow(_ s: Species, seed: uint64) -> Tree {
 // shadeCanopy bakes volumetric ambient occlusion into vertex colors: darker
 // deep inside the lower crown near the trunk, brighter at outer bough tips
 // and the crown's top.
-func shadeCanopy(_ m: mesh.Mesh, base: float32, height: float32, width: float32, lean: geom.Vec3) -> mesh.Mesh {
+func shadeCanopy(m: mesh.Mesh, base: float32, height: float32, width: float32, lean: geom.Vec3) -> mesh.Mesh {
     var out = m
     out.Colors = []
     let crownH = math.Max(height - base, 0.5)
@@ -173,7 +173,7 @@ struct branch {
     }
 
     // at is the point a fraction f along the branch, and its direction.
-    func at(_ f: float32) -> (geom.Vec3, geom.Vec3) {
+    func at(f: float32) -> (geom.Vec3, geom.Vec3) {
         let p = path()
         let x = math.Clamp(f, 0, 1) * 4
         let i = min(3, int(x))
@@ -186,7 +186,7 @@ struct branch {
 // along the branch, and a second tilted card crossing it, so it has body
 // from the side. Normals lean out from the trunk and up, so the crown
 // shades as a whole rather than card by card.
-func spray(_ b: branch, from f0: float32, to f1: float32, width: float32) -> mesh.Mesh {
+func spray(b: branch, from f0: float32, to f1: float32, width: float32) -> mesh.Mesh {
     let (a, _) = b.at(f0)
     let (c, dir) = b.at(math.Min(f1, 1))
     let end = f1 > 1 ? c + dir * (b.length * (f1 - 1)) : c
@@ -219,7 +219,7 @@ func spray(_ b: branch, from f0: float32, to f1: float32, width: float32) -> mes
 
 // cone is a cone's side from a base center up `height`, open at the
 // bottom, painted with far foliage.
-func cone(_ at: geom.Vec3, height: float32, radius: float32, sides: int) -> mesh.Mesh {
+func cone(at: geom.Vec3, height: float32, radius: float32, sides: int) -> mesh.Mesh {
     var m = mesh.Mesh()
     let top = at + geom.Vec3(0, height, 0)
     let slope = radius / math.Max(height, 0.01)
@@ -243,7 +243,7 @@ func cone(_ at: geom.Vec3, height: float32, radius: float32, sides: int) -> mesh
 }
 
 // trunkPoint is the point on the trunk's spine at height y.
-func trunkPoint(_ spine: [geom.Vec3], _ y: float32) -> geom.Vec3 {
+func trunkPoint(spine: [geom.Vec3], y: float32) -> geom.Vec3 {
     for i in 1..<spine.count where spine[i].Y >= y {
         let a = spine[i - 1], b = spine[i]
         return geom.Lerp(a, b, (y - a.Y) / math.Max(b.Y - a.Y, 1e-6))

@@ -76,7 +76,7 @@ extension Species {
 
 /// DecodeSpecies reads a species written by Encode (or by hand; what's
 /// missing keeps its default).
-public func DecodeSpecies(_ text: string) throws -> Species {
+public func DecodeSpecies(text: string) throws -> Species {
     let v = try json.Parse(text)
     var s = Species()
     s.Name = v["name"]?.String ?? ""
@@ -97,16 +97,16 @@ public func DecodeSpecies(_ text: string) throws -> Species {
     return s
 }
 
-func f32(_ v: json.Value?, _ fallback: float32) -> float32 {
+func f32(v: json.Value?, fallback: float32) -> float32 {
     guard let d = v?.Double else { return fallback }
     return float32(d)
 }
 
-func num(_ x: float32) -> json.Value {
+func num(x: float32) -> json.Value {
     return .number("\(Double(Int((x * 10000).rounded())) / 10000)")
 }
 
-func color(_ v: json.Value?) -> geom.Vec3? {
+func color(v: json.Value?) -> geom.Vec3? {
     guard let a = v?.Array, a.count == 3 else { return nil }
     return geom.Vec3(float32(a[0].Double ?? 0), float32(a[1].Double ?? 0), float32(a[2].Double ?? 0))
 }

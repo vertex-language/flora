@@ -14,12 +14,12 @@ import (
 /// twig running left to right with needles both sides, transparent
 /// between), bark next (furrowed, streaked up and down), and far foliage
 /// at the right (needles seen from afar: dark, mottled, solid).
-public func Atlas(_ s: Species, seed: uint64 = 1) -> image.RGBA {
+public func Atlas(s: Species, seed: uint64 = 1) -> image.RGBA {
     let w = 512, h = 256
     var img = image.RGBA(width: w, height: h)
     var g = rand.Xorshift128Plus(seed: seed)
     func unit() -> float32 { return float32(g.Float64()) }
-    func rgb(_ c: geom.Vec3, _ k: float32) -> draw.Color {
+    func rgb(c: geom.Vec3, k: float32) -> draw.Color {
         return draw.Color(uint8(math.Clamp(c.X * k, 0, 1) * 255), uint8(math.Clamp(c.Y * k, 0, 1) * 255), uint8(math.Clamp(c.Z * k, 0, 1) * 255), 255)
     }
 
@@ -131,7 +131,7 @@ public func Atlas(_ s: Species, seed: uint64 = 1) -> image.RGBA {
 }
 
 // stroke fills a thin quad from (x0, y0) to (x1, y1).
-func stroke(_ c: draw.Canvas, _ x0: float32, _ y0: float32, _ x1: float32, _ y1: float32, _ width: float32, _ color: draw.Color) {
+func stroke(c: draw.Canvas, x0: float32, y0: float32, x1: float32, y1: float32, width: float32, color: draw.Color) {
     let dx = x1 - x0, dy = y1 - y0
     let len = math.Sqrt(dx * dx + dy * dy)
     if len < 0.01 { return }
